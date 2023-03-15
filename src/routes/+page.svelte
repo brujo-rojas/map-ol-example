@@ -17,11 +17,11 @@
 	import FeatureFormat from 'ol/format/Feature';
 
 	interface DataImage {
-		url: String;
-		size: String;
-		date: String;
-		grid: String;
-		band: String;
+		url: string;
+		size: string;
+		date: string;
+		grid: string;
+		band: string;
 	}
 
 	interface PolygonProperties {
@@ -31,7 +31,7 @@
 		top: Number;
 		right: Number;
 		bottom: Number;
-		grid_name: String;
+		grid_name: string;
 	}
 
 	let map: Map;
@@ -107,13 +107,17 @@
 <div id="map" />
 {#if featureSelectedData && featureSelectedData.grid_name}
 	<div class="info">
-		<b>grid Selected: </b>
+		<h4>grid Selected:  
 		{featureSelectedData.grid_name}
+		</h4>
 
 		{#each images as image}
-			<p>
-				{image.band}
-			</p>
+			<div class="image-container">
+				fecha: {image.date}
+				<a href={image.url} target="_blank">
+					banda {image.band} (TIF {image.size})
+				</a>
+			</div>
 		{/each}
 	</div>
 {/if}
@@ -124,13 +128,22 @@
 	#map {
 		height: 100vh;
 	}
+
+	.image-container{
+		border: 1px solid grey;
+		padding: 10px;
+		display: flex;
+		flex-direction: column;
+	}
 	.info {
 		position: absolute;
 		bottom: 2rem;
 		right: 2rem;
-		padding: 3rem;
+		padding: 2rem;
 		background-color: white;
 		border: 1px solid grey;
 		border-radius: 3px;
+		max-height: 60%;
+		overflow: scroll;
 	}
 </style>
